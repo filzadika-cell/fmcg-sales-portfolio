@@ -1,0 +1,39 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# MS Office lock / temp files
+~$*
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+
+# Jupyter
+*.ipynb_checkpoints
+
+# Node (for ppt/generate_ppt.js if you ever run npm install)
+node_modules/
+package-lock.json
+
+# Build / dist
+dist/
+build/
+
+# Local databases
+*.sqlite
+*.db
+*.db-journal
+
+# Logs
+*.log
