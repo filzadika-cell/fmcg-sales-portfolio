@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>FMCG Sales Performance Dashboard — Mockup</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  /* Tableau Public default-ish look: white BG, light gridlines, Arial/Helvetica */
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Tableau Book','Benton Sans','Arial',sans-serif;
+    background:#f4f4f4;
+    color:#333;
+    -webkit-font-smoothing:antialiased;
+    padding:20px;
+  }
+  .dashboard{
+    width:1366px;
+    margin:0 auto;
+    background:#ffffff;
+    border:1px solid #e0e0e0;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  /* Header strip — Tableau Public style */
+  .dash-header{
+    background:#f4f6f8;
+    border-bottom:1px solid #d4d4d4;
+    padding:12px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .dash-title{font-size:20px;font-weight:700;color:#1f2d3d;letter-spacing:.2px}
+  .dash-subtitle{font-size:11px;color:#666;margin-top:2px}
+  .dash-meta{font-size:11px;color:#888;text-align:right}
+
+  /* Filter bar */
+  .filter-bar{
+    display:flex;gap:14px;align-items:center;
+    padding:10px 20px;background:#fafbfc;border-bottom:1px solid #e0e0e0;
+    font-size:12px;
+  }
+  .filter-bar label{color:#555;font-weight:600;margin-right:4px}
+  .filter-bar select{
+    padding:4px 22px 4px 8px;border:1px solid #c8c8c8;border-radius:2px;
+    background:#fff;font-size:12px;color:#333;cursor:pointer;
+    appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><polygon points='0,3 10,3 5,8' fill='%23666'/></svg>");
+    background-repeat:no-repeat;background-position:right 6px center;
+  }
+  .filter-bar .pill{
+    background:#1f77b4;color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600
+  }
+
+  /* KPI row */
+  .kpi-row{
+    display:grid;grid-template-columns:repeat(5,1fr);
+    gap:1px;background:#e0e0e0;
+    border-bottom:1px solid #e0e0e0;
+  }
+  .kpi{
+    background:#fff;padding:14px 18px;
+  }
+  .kpi-label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+  .kpi-value{font-size:30px;color:#1f2d3d;font-weight:700;margin-top:4px;line-height:1}
+  .kpi-sub{font-size:11px;margin-top:4px;color:#888}
+  .kpi-sub.up{color:#2c7a39}
+  .kpi-sub.down{color:#b85042}
+
+  /* Grid layout for chart sheets */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;background:#e0e0e0;
+  }
+  .sheet{background:#fff;padding:12px 16px 16px 16px;min-height:260px;position:relative}
+  .sheet.full{grid-column:1 / span 2}
+  .sheet-title{
+    font-size:12px;color:#5a5a5a;font-weight:700;
+    text-transform:uppercase;letter-spacing:.4px;
+    border-bottom:1px solid #e6e6e6;padding-bottom:6px;margin-bottom:10px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .sheet-title .insight{
+    font-size:11px;font-weight:500;color:#888;text-transform:none;letter-spacing:0
+  }
+  .chart-wrap{position:relative;height:240px}
+  .chart-wrap.tall{height:300px}
+
+  /* Heatmap */
+  .heatmap{
+    width:100%;border-collapse:collapse;font-size:11px;
+  }
+  .heatmap th,.heatmap td{
+    border:1px solid #fff;padding:8px 6px;text-align:center;color:#333;
+  }
+  .heatmap th{background:#fff;color:#5a5a5a;font-weight:600;font-size:10px;text-align:center}
+  .heatmap th.row{text-align:right;padding-right:10px;background:#fff;font-weight:600;color:#444}
+  .heatmap td.row-label{text-align:right;padding-right:10px;background:#fff;font-weight:600;color:#444;font-size:11px}
+  .heatmap td:hover{outline:2px solid #1f77b4;cursor:pointer}
+
+  /* Footer */
+  .dash-footer{
+    background:#fafbfc;border-top:1px solid #e0e0e0;padding:8px 20px;
+    display:flex;justify-content:space-between;font-size:10px;color:#888;
+  }
+
+  /* Tooltips */
+  [data-tip]{position:relative}
+  [data-tip]:hover::after{
+    content:attr(data-tip);
+    position:absolute;left:50%;bottom:100%;transform:translate(-50%,-6px);
+    background:#fff;border:1px solid #c0c0c0;
+    padding:6px 10px;font-size:11px;color:#333;
+    box-shadow:0 2px 6px rgba(0,0,0,.12);
+    white-space:nowrap;z-index:10;border-radius:2px;
+  }
+
+  /* Disclaimer banner */
+  .mockup-banner{
+    background:#fff8e6;color:#8a6d00;border-bottom:1px solid #f0d77f;
+    padding:6px 20px;font-size:11px;display:flex;justify-content:space-between;
+  }
+
+  /* Responsive */
+  @media (max-width:1400px){
+    .dashboard{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <div class="mockup-banner">
+    <span><b>Dashboard Mockup</b> — preview tampilan akhir saat dibangun di Tableau Public. Angka diambil dari hasil analisis CSV asli (2023–2024).</span>
+    <span>Built with Chart.js · Tableau Public default style</span>
+  </div>
+
+  <!-- Header -->
+  <div class="dash-header">
+    <div>
+      <div class="dash-title">FMCG Sales Performance Dashboard</div>
+      <div class="dash-subtitle">Periode: Jan 2023 – Dec 2024 · 8 Cabang · 5 Principal · 25 Produk · ~16.000 transaksi</div>
+    </div>
+    <div class="dash-meta">
+      Last refresh: 2026-05-04 09:00 WIB<br>
+      Source: <code>sales_clean_for_tableau.csv</code>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <span class="pill">FILTERS</span>
+    <label>Year:</label>
+    <select><option>(All)</option><option>2023</option><option>2024</option></select>
+    <label>Region:</label>
+    <select><option>(All)</option><option>Jabodetabek</option><option>Jawa Barat</option><option>Jawa Tengah</option><option>Jawa Timur</option><option>Sumatera</option><option>Sulawesi</option><option>Bali-Nusra</option></select>
+    <label>Principal:</label>
+    <select><option>(All)</option><option>Nestle Indonesia</option><option>Unilever Indonesia</option><option>Wings Group</option><option>Mayora Indah</option><option>Indofood Sukses Makmur</option></select>
+    <span style="margin-left:auto;color:#888;font-size:11px">Drag a filter to apply across all sheets</span>
+  </div>
+
+  <!-- KPI Row -->
+  <div class="kpi-row">
+    <div class="kpi" data-tip="SUM(Revenue) — semua cabang & principal">
+      <div class="kpi-label">Total Revenue</div>
+      <div class="kpi-value">Rp 15.61<span style="font-size:18px;color:#666">&nbsp;M</span></div>
+      <div class="kpi-sub up">▲ +21.3% YoY</div>
+    </div>
+    <div class="kpi" data-tip="SUM(Gross Profit) = Revenue − Cost">
+      <div class="kpi-label">Total Profit</div>
+      <div class="kpi-value">Rp 2.18<span style="font-size:18px;color:#666">&nbsp;M</span></div>
+      <div class="kpi-sub up">▲ +18.7% YoY</div>
+    </div>
+    <div class="kpi" data-tip="Profit / Revenue">
+      <div class="kpi-label">Avg Margin</div>
+      <div class="kpi-value">13.97%</div>
+      <div class="kpi-sub down">▼ −0.3 pp YoY</div>
+    </div>
+    <div class="kpi" data-tip="COUNTD(Transaction Id)">
+      <div class="kpi-label">Transactions</div>
+      <div class="kpi-value">15,946</div>
+      <div class="kpi-sub up">▲ +12.4% YoY</div>
+    </div>
+    <div class="kpi" data-tip="Achievement vs Target 2024 (= 2023 × 1.15)">
+      <div class="kpi-label">Achievement 2024</div>
+      <div class="kpi-value">96.4%</div>
+      <div class="kpi-sub up">17 / 25 produk on-target</div>
+    </div>
+  </div>
+
+  <!-- Monthly Trend (full width) -->
+  <div class="grid">
+    <div class="sheet full">
+      <div class="sheet-title">
+        <span>📈 Monthly Revenue Trend — Ramadan dan Akhir Tahun mengangkat performa</span>
+        <span class="insight">Color: Year · Mark: Line + Circle</span>
+      </div>
+      <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Row 2: Branch Revenue + Principal Share -->
+  <div class="grid">
+    <div class="sheet">
+      <div class="sheet-title">
+        <span>🏢 Revenue by Branch — Jakarta Pusat &amp; Surabaya teratas</span>
+        <span class="insight">Sort: Desc · Color: Sequential Blue</span>
+      </div>
+      <div class="chart-wrap tall"><canvas id="branchChart"></canvas></div>
+    </div>
+
+    <div class="sheet">
+      <div class="sheet-title">
+        <span>🤝 Principal Share — Nestle dominan 45%</span>
+        <span class="insight">Donut · Angle: Revenue</span>
+      </div>
+      <div class="chart-wrap tall"><canvas id="principalChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Row 3: Top Products + Heatmap -->
+  <div class="grid">
+    <div class="sheet">
+      <div class="sheet-title">
+        <span>📦 Top 10 Products — 2 produk Nestle teratas</span>
+        <span class="insight">Top N filter (10) · By Revenue</span>
+      </div>
+      <div class="chart-wrap tall"><canvas id="topProdChart"></canvas></div>
+    </div>
+
+    <div class="sheet">
+      <div class="sheet-title">
+        <span>🔥 Branch × Principal Heatmap — Jakarta Pusat × Nestle = 1.28 M</span>
+        <span class="insight">Mark: Square · Color: Revenue (Rp Miliar)</span>
+      </div>
+      <div id="heatmapWrap"></div>
+    </div>
+  </div>
+
+  <!-- Row 4: YoY Growth + Achievement Bullet -->
+  <div class="grid">
+    <div class="sheet">
+      <div class="sheet-title">
+        <span>📊 YoY Growth by Branch — Makassar +49%, Jakarta Timur −10%</span>
+        <span class="insight">Diverging · Red &lt; 10% · Green ≥ 10%</span>
+      </div>
+      <div class="chart-wrap tall"><canvas id="yoyChart"></canvas></div>
+    </div>
+
+    <div class="sheet">
+      <div class="sheet-title">
+        <span>🎯 Achievement vs Target 2024 (Top 8 Produk)</span>
+        <span class="insight">Bullet · Reference: Target = 2023 × 1.15</span>
+      </div>
+      <div class="chart-wrap tall"><canvas id="achievementChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="dash-footer">
+    <span>Prepared by <b>Filza Dika</b> · Data Analyst Portfolio · #FMCG #SalesAnalytics #Tableau</span>
+    <span>Source: synthetic FMCG dataset · Last updated 2026-05-04</span>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   Tableau-like styling defaults for Chart.js
+   ============================================================ */
+Chart.defaults.font.family = "'Tableau Book','Arial','Helvetica',sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#444';
+Chart.defaults.plugins.legend.labels.boxWidth = 12;
+Chart.defaults.plugins.legend.labels.boxHeight = 12;
+Chart.defaults.plugins.tooltip.backgroundColor = '#ffffff';
+Chart.defaults.plugins.tooltip.titleColor = '#1f2d3d';
+Chart.defaults.plugins.tooltip.bodyColor = '#333';
+Chart.defaults.plugins.tooltip.borderColor = '#c0c0c0';
+Chart.defaults.plugins.tooltip.borderWidth = 1;
+Chart.defaults.plugins.tooltip.padding = 8;
+Chart.defaults.plugins.tooltip.titleFont = {weight:'700',size:11};
+Chart.defaults.plugins.tooltip.bodyFont = {size:11};
+Chart.defaults.plugins.tooltip.cornerRadius = 2;
+Chart.defaults.plugins.tooltip.displayColors = true;
+
+const grid = '#eaeaea';
+const tickColor = '#666';
+
+/* ============================================================
+   1. Monthly Revenue Trend
+   ============================================================ */
+const months = [
+  '2023-01','2023-02','2023-03','2023-04','2023-05','2023-06',
+  '2023-07','2023-08','2023-09','2023-10','2023-11','2023-12',
+  '2024-01','2024-02','2024-03','2024-04','2024-05','2024-06',
+  '2024-07','2024-08','2024-09','2024-10','2024-11','2024-12'
+];
+const revenue2023 = [0.56,0.37,0.82,0.63,0.55,0.66,0.64,0.63,0.55,0.59,0.52,0.68];
+const revenue2024 = [0.61,0.51,0.85,0.82,0.73,0.66,0.81,0.66,0.72,0.64,0.72,0.76];
+
+new Chart(document.getElementById('trendChart'),{
+  type:'line',
+  data:{
+    labels:months,
+    datasets:[
+      {
+        label:'2023',
+        data:[...revenue2023, ...Array(12).fill(null)],
+        borderColor:'#a0c4d6',backgroundColor:'rgba(160,196,214,0.15)',
+        borderWidth:2,tension:0.25,pointRadius:3,pointBackgroundColor:'#a0c4d6',fill:true
+      },
+      {
+        label:'2024',
+        data:[...Array(12).fill(null), ...revenue2024],
+        borderColor:'#1f77b4',backgroundColor:'rgba(31,119,180,0.18)',
+        borderWidth:2.5,tension:0.25,pointRadius:3,pointBackgroundColor:'#1f77b4',fill:true
+      }
+    ]
+  },
+  options:{
+    maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',align:'end',labels:{usePointStyle:true,pointStyle:'circle'}},
+      tooltip:{callbacks:{label:(c)=>c.dataset.label+': Rp '+c.raw.toFixed(2)+' Miliar'}}
+    },
+    scales:{
+      x:{grid:{color:grid,drawBorder:false},ticks:{color:tickColor,maxRotation:45,minRotation:45,font:{size:10}}},
+      y:{grid:{color:grid,drawBorder:false},ticks:{color:tickColor,callback:v=>'Rp '+v.toFixed(1)+' M'},title:{display:true,text:'Revenue (Rp Miliar)',color:'#666',font:{size:11}}}
+    }
+  }
+});
+
+/* ============================================================
+   2. Branch Revenue
+   ============================================================ */
+const branches = ['Makassar','Medan','Denpasar','Semarang','Bandung','Jakarta Timur','Surabaya','Jakarta Pusat'];
+const branchRev = [1.40,1.45,1.63,1.83,2.00,2.21,2.36,2.73];
+const blueScale = ['#dbe9f4','#cfe1f0','#b8d2ea','#94bce0','#6ba0d3','#4a8bc8','#2e76bc','#1f77b4'];
+
+new Chart(document.getElementById('branchChart'),{
+  type:'bar',
+  data:{
+    labels:branches,
+    datasets:[{
+      label:'Revenue',
+      data:branchRev,
+      backgroundColor:blueScale,
+      borderColor:'#1f77b4',borderWidth:0
+    }]
+  },
+  options:{
+    maintainAspectRatio:false,
+    indexAxis:'y',
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:(c)=>'Revenue: Rp '+c.raw.toFixed(2)+' Miliar'}},
+      datalabelsManual:true
+    },
+    scales:{
+      x:{grid:{color:grid,drawBorder:false},ticks:{color:tickColor,callback:v=>v.toFixed(1)+' M'}},
+      y:{grid:{display:false},ticks:{color:'#333',font:{weight:'600'}}}
+    },
+    animation:{onComplete:function(){
+      const c=this; const ctx=c.ctx; ctx.font='11px Arial'; ctx.fillStyle='#333'; ctx.textBaseline='middle';
+      c.data.datasets[0].data.forEach((v,i)=>{
+        const meta=c.getDatasetMeta(0).data[i];
+        ctx.fillText(v.toFixed(2)+' M', meta.x+6, meta.y);
+      });
+    }}
+  }
+});
+
+/* ============================================================
+   3. Principal Share — Donut
+   ============================================================ */
+const principals = ['Nestle Indonesia','Unilever Indonesia','Wings Group','Mayora Indah','Indofood Sukses Makmur'];
+const principalRev = [7.13, 4.25, 2.01, 1.20, 1.02];   // Rp Miliar (sums to 15.61)
+const principalColors = ['#1f3a6d','#1f77b4','#3a92c4','#84b59f','#cfe1d3'];
+
+new Chart(document.getElementById('principalChart'),{
+  type:'doughnut',
+  data:{
+    labels:principals,
+    datasets:[{data:principalRev,backgroundColor:principalColors,borderColor:'#fff',borderWidth:2}]
+  },
+  options:{
+    maintainAspectRatio:false,
+    cutout:'62%',
+    plugins:{
+      legend:{position:'right',labels:{usePointStyle:true,pointStyle:'rect',font:{size:11},padding:8}},
+      tooltip:{callbacks:{label:(c)=>{
+        const total = c.dataset.data.reduce((a,b)=>a+b,0);
+        const pct = (c.raw/total*100).toFixed(1);
+        return c.label+': Rp '+c.raw.toFixed(2)+' M ('+pct+'%)';
+      }}}
+    }
+  },
+  plugins:[{
+    id:'centerText',
+    afterDraw(chart){
+      const {ctx,chartArea:{left,right,top,bottom}}=chart;
+      const cx=(left+right)/2, cy=(top+bottom)/2;
+      ctx.save();
+      ctx.fillStyle='#1f2d3d';ctx.font='700 22px Arial';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText('Rp 15.61 M', cx, cy-8);
+      ctx.font='11px Arial';ctx.fillStyle='#888';
+      ctx.fillText('Total Revenue', cx, cy+12);
+      ctx.restore();
+    }
+  }]
+});
+
+/* ============================================================
+   4. Top 10 Products
+   ============================================================ */
+const products = [
+  'Roma Kelapa 300g','Kopiko Permen 150g','So Klin Detergent 800g','Daia Detergent 800g',
+  'Rexona Deodorant 50ml','Clear Shampoo 170ml','Sunsilk Shampoo 170ml',
+  'Koko Krunch Cereal 170g','Nescafe Classic 200g','Dancow Fortigro 800g'
+];
+const productRev = [0.42,0.48,0.58,0.73,0.86,1.17,1.75,1.95,2.18,2.43];
+// Color by principal: Nestle=navy, Unilever=blue, Wings=lightblue, Mayora=teal, Indofood=mint
+const productColors = ['#84b59f','#84b59f','#3a92c4','#3a92c4','#1f77b4','#1f77b4','#1f77b4','#1f3a6d','#1f3a6d','#1f3a6d'];
+
+new Chart(document.getElementById('topProdChart'),{
+  type:'bar',
+  data:{labels:products,datasets:[{label:'Revenue',data:productRev,backgroundColor:productColors,borderWidth:0}]},
+  options:{
+    maintainAspectRatio:false,
+    indexAxis:'y',
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:(c)=>'Revenue: Rp '+c.raw.toFixed(2)+' Miliar'}}
+    },
+    scales:{
+      x:{grid:{color:grid,drawBorder:false},ticks:{color:tickColor,callback:v=>v.toFixed(1)+' M'}},
+      y:{grid:{display:false},ticks:{color:'#333',font:{size:10}}}
+    }
+  }
+});
+
+/* ============================================================
+   5. Branch × Principal Heatmap (custom HTML/SVG)
+   ============================================================ */
+const heatmapData = [
+  // [Branch, Indofood, Mayora, Nestle, Unilever, Wings]
+  ['Jakarta Pusat',  0.17, 0.20, 1.28, 0.76, 0.33],
+  ['Surabaya',       0.13, 0.16, 1.12, 0.65, 0.30],
+  ['Jakarta Timur',  0.15, 0.22, 0.98, 0.53, 0.33],
+  ['Bandung',        0.13, 0.15, 0.90, 0.57, 0.24],
+  ['Semarang',       0.13, 0.13, 0.85, 0.49, 0.23],
+  ['Denpasar',       0.11, 0.13, 0.75, 0.43, 0.21],
+  ['Medan',          0.10, 0.11, 0.61, 0.44, 0.19],
+  ['Makassar',       0.10, 0.11, 0.63, 0.38, 0.18]
+];
+const heatPrincipals=['Indofood','Mayora','Nestle','Unilever','Wings'];
+function heatColor(v,min=0.10,max=1.28){
+  // Tableau YlGnBu-ish
+  const t=(v-min)/(max-min);
+  const stops=[
+    [255,255,217],[237,248,177],[199,233,180],[127,205,187],
+    [65,182,196],[29,145,192],[34,94,168],[12,44,132]
+  ];
+  const i=Math.min(stops.length-2,Math.max(0,Math.floor(t*(stops.length-1))));
+  const f=(t*(stops.length-1))-i;
+  const c=stops[i].map((v,j)=>Math.round(v+f*(stops[i+1][j]-v)));
+  return `rgb(${c[0]},${c[1]},${c[2]})`;
+}
+function textColor(v){return v>0.6?'#fff':'#1f2d3d'}
+
+let html='<table class="heatmap"><thead><tr><th></th>';
+heatPrincipals.forEach(p=>html+=`<th>${p}</th>`);
+html+='</tr></thead><tbody>';
+heatmapData.forEach(row=>{
+  html+=`<tr><td class="row-label">${row[0]}</td>`;
+  for(let i=1;i<row.length;i++){
+    const v=row[i];
+    html+=`<td style="background:${heatColor(v)};color:${textColor(v)};font-weight:600" data-tip="${row[0]} × ${heatPrincipals[i-1]}: Rp ${v.toFixed(2)} M">${v.toFixed(2)}</td>`;
+  }
+  html+='</tr>';
+});
+html+='</tbody></table>';
+document.getElementById('heatmapWrap').innerHTML=html;
+
+/* ============================================================
+   6. YoY Growth by Branch (diverging)
+   ============================================================ */
+const yoyBranches=['Jakarta Timur','Semarang','Medan','Denpasar','Jakarta Pusat','Surabaya','Bandung','Makassar'];
+const yoyValues=[-9.6, 8.4, 11.7, 15.7, 16.3, 32.7, 38.5, 49.2];
+const yoyColors=yoyValues.map(v=> v<10 ? '#b85042' : '#2c7a39');
+
+new Chart(document.getElementById('yoyChart'),{
+  type:'bar',
+  data:{labels:yoyBranches,datasets:[{label:'YoY %',data:yoyValues,backgroundColor:yoyColors}]},
+  options:{
+    maintainAspectRatio:false,indexAxis:'y',
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:(c)=>'YoY Growth: '+(c.raw>=0?'+':'')+c.raw.toFixed(1)+'%'}}
+    },
+    scales:{
+      x:{grid:{color:grid,drawBorder:false},ticks:{color:tickColor,callback:v=>v+'%'}},
+      y:{grid:{display:false},ticks:{color:'#333',font:{weight:'600'}}}
+    },
+    animation:{onComplete:function(){
+      const c=this;const ctx=c.ctx;ctx.font='11px Arial';ctx.textBaseline='middle';
+      c.data.datasets[0].data.forEach((v,i)=>{
+        const meta=c.getDatasetMeta(0).data[i];
+        ctx.fillStyle='#333';
+        const txt=(v>=0?'+':'')+v.toFixed(1)+'%';
+        if(v>=0) ctx.fillText(txt,meta.x+6,meta.y);
+        else { ctx.textAlign='right'; ctx.fillText(txt,meta.x-6,meta.y); ctx.textAlign='left';}
+      });
+    }}
+  }
+});
+
+/* ============================================================
+   7. Achievement vs Target 2024 (bullet-style stacked)
+   ============================================================ */
+const achProducts=['Dancow Fortigro 800g','Nescafe Classic 200g','Koko Krunch Cereal 170g','Sunsilk Shampoo 170ml','Clear Shampoo 170ml','Rexona Deodorant 50ml','Indomie Goreng','Pepsodent 190g'];
+const achActual = [128, 118, 105, 102, 98, 95, 88, 75]; // achievement %
+const achColors = achActual.map(v=> v>=100 ? '#2c7a39' : v>=80 ? '#d8a32a' : '#b85042');
+
+new Chart(document.getElementById('achievementChart'),{
+  type:'bar',
+  data:{labels:achProducts,datasets:[
+    {label:'Achievement %',data:achActual,backgroundColor:achColors,borderRadius:0}
+  ]},
+  options:{
+    maintainAspectRatio:false,indexAxis:'y',
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:(c)=>'Achievement: '+c.raw.toFixed(0)+'% of Target'}},
+      annotation:{}
+    },
+    scales:{
+      x:{
+        grid:{color:grid,drawBorder:false},
+        ticks:{color:tickColor,callback:v=>v+'%'},
+        max:140
+      },
+      y:{grid:{display:false},ticks:{color:'#333',font:{size:10}}}
+    },
+    animation:{onComplete:function(){
+      const c=this;const ctx=c.ctx;ctx.save();
+      // 100% reference line
+      const xScale=c.scales.x;
+      const x100=xScale.getPixelForValue(100);
+      ctx.strokeStyle='#888';ctx.setLineDash([4,3]);ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(x100,c.chartArea.top);ctx.lineTo(x100,c.chartArea.bottom);ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='#666';ctx.font='10px Arial';ctx.fillText('Target',x100+3,c.chartArea.top+10);
+      // labels
+      ctx.font='11px Arial';ctx.textBaseline='middle';
+      c.data.datasets[0].data.forEach((v,i)=>{
+        const meta=c.getDatasetMeta(0).data[i];
+        ctx.fillStyle='#333';
+        ctx.fillText(v+'%', meta.x+5, meta.y);
+      });
+      ctx.restore();
+    }}
+  }
+});
+</script>
+</body>
+</html>

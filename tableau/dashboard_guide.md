@@ -2,6 +2,13 @@
 
 Panduan lengkap membangun **interactive sales performance dashboard** di Tableau Public/Desktop.
 
+> 👀 **Preview tampilan akhir** — buka file berikut sebelum mulai membangun di Tableau:
+> - [`dashboard_mockup.html`](dashboard_mockup.html) — versi interaktif (filter dropdown, hover tooltip)
+> - [`dashboard_preview.svg`](dashboard_preview.svg) — versi gambar statis (vector, scalable)
+> - [`dashboard_preview.html`](dashboard_preview.html) — preview + tombol export PNG
+>
+> Semua mockup sudah memakai angka asli dari hasil analisis CSV (Total Revenue Rp 15.61 M, Nestle 45% share, dll) supaya mudah dijadikan referensi saat menyusun ulang di Tableau.
+
 ---
 
 ## 📋 Prerequisites

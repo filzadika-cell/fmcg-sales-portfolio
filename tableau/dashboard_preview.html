@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>FMCG Dashboard Preview — Static Image</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Tableau Book','Arial',sans-serif;background:#e9eaee;padding:20px;color:#333}
+  .toolbar{
+    max-width:1366px;margin:0 auto 14px auto;display:flex;justify-content:space-between;align-items:center;
+    background:#fff;border:1px solid #d4d4d4;padding:10px 16px;border-radius:2px;
+  }
+  .toolbar h1{font-size:14px;color:#1f2d3d}
+  .toolbar p{font-size:11px;color:#666;margin-top:2px}
+  .toolbar button{
+    background:#1f77b4;color:#fff;border:none;padding:8px 14px;font-size:12px;
+    cursor:pointer;border-radius:2px;font-weight:600;
+  }
+  .toolbar button:hover{background:#185a8a}
+  .stage{
+    max-width:1366px;margin:0 auto;background:#fff;border:1px solid #d4d4d4;
+    box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:auto;
+  }
+  .stage img, .stage object{display:block;width:100%}
+  .hint{max-width:1366px;margin:14px auto 0 auto;font-size:11px;color:#666;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div>
+    <h1>FMCG Sales Performance Dashboard — Static Preview</h1>
+    <p>Mockup tampilan akhir dashboard saat dibangun di Tableau Public.</p>
+  </div>
+  <button onclick="downloadAsPng()">⬇ Download as PNG (1366×950)</button>
+</div>
+
+<div class="stage" id="stage">
+  <object id="svgObj" type="image/svg+xml" data="dashboard_preview.svg" width="1366" height="950"></object>
+</div>
+
+<p class="hint">
+  💡 <b>Tip:</b> klik tombol <b>Download as PNG</b> untuk menyimpan gambar dashboard sebagai file PNG.
+  Untuk versi <b>interaktif</b> (filter dropdown, tooltip, hover), buka <code>dashboard_mockup.html</code>.
+</p>
+
+<script>
+async function downloadAsPng(){
+  // Fetch SVG, render it to canvas, export PNG
+  const res = await fetch('dashboard_preview.svg');
+  const svgText = await res.text();
+  const blob = new Blob([svgText], {type:'image/svg+xml;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = function(){
+    const canvas = document.createElement('canvas');
+    const scale = 2; // 2x for retina-sharp PNG
+    canvas.width = 1366 * scale;
+    canvas.height = 950 * scale;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.scale(scale, scale);
+    ctx.drawImage(img, 0, 0, 1366, 950);
+    canvas.toBlob(function(b){
+      const dl = document.createElement('a');
+      dl.download = 'fmcg_dashboard_preview.png';
+      dl.href = URL.createObjectURL(b);
+      dl.click();
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+  };
+  img.onerror = function(){
+    alert('SVG render failed — coba buka langsung dashboard_preview.svg di browser dan screenshot.');
+    URL.revokeObjectURL(url);
+  };
+  img.src = url;
+}
+</script>
+
+</body>
+</html>

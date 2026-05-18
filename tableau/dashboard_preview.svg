@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1366" height="950" viewBox="0 0 1366 950" font-family="Arial, Helvetica, sans-serif">
+<style>
+  .title{font-weight:700;fill:#1f2d3d}
+  .sub{fill:#666;font-size:11px}
+  .meta{fill:#888;font-size:10px}
+  .section-title{font-size:12px;font-weight:700;fill:#5a5a5a;text-transform:uppercase}
+  .insight{font-size:11px;fill:#888}
+  .kpi-label{font-size:10px;font-weight:700;fill:#666;letter-spacing:.5px}
+  .kpi-val{font-size:28px;font-weight:700;fill:#1f2d3d}
+  .kpi-sub-up{font-size:11px;fill:#2c7a39}
+  .kpi-sub-down{font-size:11px;fill:#b85042}
+  .grid-line{stroke:#eaeaea;stroke-width:1}
+  .axis{stroke:#cfcfcf;stroke-width:1}
+  .tick{font-size:10px;fill:#666}
+  .axis-lbl{font-size:11px;fill:#666}
+  .bar-lbl{font-size:11px;fill:#333;font-weight:600}
+  .footer{font-size:10px;fill:#888}
+</style>
+
+<!-- Background canvas -->
+<rect width="1366" height="950" fill="#f4f4f4"/>
+<rect x="0" y="0" width="1366" height="950" fill="#ffffff" stroke="#e0e0e0"/>
+
+<!-- ===== Mockup banner ===== -->
+<rect x="0" y="0" width="1366" height="26" fill="#fff8e6" stroke="#f0d77f"/>
+<text x="20" y="17" font-size="11" fill="#8a6d00"><tspan font-weight="700">Dashboard Mockup</tspan> — preview tampilan akhir saat dibangun di Tableau Public. Angka dari sales_clean_for_tableau.csv (2023–2024).</text>
+<text x="1346" y="17" font-size="10" fill="#8a6d00" text-anchor="end">Tableau Public default style</text>
+
+<!-- ===== Header ===== -->
+<rect x="0" y="26" width="1366" height="60" fill="#f4f6f8" stroke="#d4d4d4"/>
+<text x="20" y="52" class="title" font-size="20">FMCG Sales Performance Dashboard</text>
+<text x="20" y="72" class="sub">Periode: Jan 2023 – Dec 2024  ·  8 Cabang  ·  5 Principal  ·  25 Produk  ·  ~16.000 transaksi</text>
+<text x="1346" y="50" class="meta" text-anchor="end">Last refresh: 2026-05-04 09:00 WIB</text>
+<text x="1346" y="66" class="meta" text-anchor="end">Source: sales_clean_for_tableau.csv</text>
+
+<!-- ===== Filter bar ===== -->
+<rect x="0" y="86" width="1366" height="32" fill="#fafbfc" stroke="#e0e0e0"/>
+<rect x="20" y="93" width="58" height="18" rx="9" fill="#1f77b4"/>
+<text x="49" y="106" font-size="10" fill="#fff" font-weight="700" text-anchor="middle">FILTERS</text>
+<text x="100" y="106" font-size="11" fill="#555" font-weight="600">Year:</text>
+<rect x="135" y="93" width="80" height="18" fill="#fff" stroke="#c8c8c8"/>
+<text x="142" y="106" font-size="11" fill="#333">(All)  ▾</text>
+<text x="230" y="106" font-size="11" fill="#555" font-weight="600">Region:</text>
+<rect x="275" y="93" width="100" height="18" fill="#fff" stroke="#c8c8c8"/>
+<text x="282" y="106" font-size="11" fill="#333">(All)  ▾</text>
+<text x="390" y="106" font-size="11" fill="#555" font-weight="600">Principal:</text>
+<rect x="445" y="93" width="120" height="18" fill="#fff" stroke="#c8c8c8"/>
+<text x="452" y="106" font-size="11" fill="#333">(All)  ▾</text>
+<text x="1346" y="106" font-size="11" fill="#888" text-anchor="end">Cross-sheet filtering enabled</text>
+
+<!-- ===== KPI Row (y=118..198) ===== -->
+<g transform="translate(0,118)">
+  <!-- Borders between cards -->
+  <line x1="273.2" y1="0" x2="273.2" y2="80" stroke="#e0e0e0"/>
+  <line x1="546.4" y1="0" x2="546.4" y2="80" stroke="#e0e0e0"/>
+  <line x1="819.6" y1="0" x2="819.6" y2="80" stroke="#e0e0e0"/>
+  <line x1="1092.8" y1="0" x2="1092.8" y2="80" stroke="#e0e0e0"/>
+  <line x1="0" y1="80" x2="1366" y2="80" stroke="#e0e0e0"/>
+
+  <!-- Card 1 -->
+  <text x="20" y="20" class="kpi-label">TOTAL REVENUE</text>
+  <text x="20" y="52" class="kpi-val">Rp 15.61 <tspan font-size="18" fill="#666">M</tspan></text>
+  <text x="20" y="72" class="kpi-sub-up">▲ +21.3% YoY</text>
+
+  <!-- Card 2 -->
+  <text x="293" y="20" class="kpi-label">TOTAL PROFIT</text>
+  <text x="293" y="52" class="kpi-val">Rp 2.18 <tspan font-size="18" fill="#666">M</tspan></text>
+  <text x="293" y="72" class="kpi-sub-up">▲ +18.7% YoY</text>
+
+  <!-- Card 3 -->
+  <text x="566" y="20" class="kpi-label">AVG MARGIN</text>
+  <text x="566" y="52" class="kpi-val">13.97%</text>
+  <text x="566" y="72" class="kpi-sub-down">▼ −0.3 pp YoY</text>
+
+  <!-- Card 4 -->
+  <text x="839" y="20" class="kpi-label">TRANSACTIONS</text>
+  <text x="839" y="52" class="kpi-val">15,946</text>
+  <text x="839" y="72" class="kpi-sub-up">▲ +12.4% YoY</text>
+
+  <!-- Card 5 -->
+  <text x="1112" y="20" class="kpi-label">ACHIEVEMENT 2024</text>
+  <text x="1112" y="52" class="kpi-val">96.4%</text>
+  <text x="1112" y="72" class="kpi-sub-up">17 / 25 produk on-target</text>
+</g>
+
+<!-- ===== Monthly Trend (y=198..420, h=222) ===== -->
+<g transform="translate(0,198)">
+  <rect x="0" y="0" width="1366" height="222" fill="#fff"/>
+  <line x1="0" y1="222" x2="1366" y2="222" stroke="#e0e0e0"/>
+  <text x="20" y="22" class="section-title">📈 MONTHLY REVENUE TREND — RAMADAN &amp; AKHIR TAHUN MENGANGKAT PERFORMA</text>
+  <text x="1346" y="22" class="insight" text-anchor="end">Color: Year · Mark: Line + Circle</text>
+  <line x1="20" y1="32" x2="1346" y2="32" stroke="#e6e6e6"/>
+
+  <!-- Legend -->
+  <circle cx="1230" cy="48" r="4" fill="#a0c4d6"/>
+  <text x="1240" y="52" font-size="11" fill="#444">2023</text>
+  <circle cx="1280" cy="48" r="4" fill="#1f77b4"/>
+  <text x="1290" y="52" font-size="11" fill="#444">2024</text>
+
+  <!-- Chart area: x=70..1340 (1270px), y=70..200 (h=130). Y axis: 0..1.0 Miliar -->
+  <!-- Grid lines & y-ticks -->
+  <line x1="70" y1="200" x2="1340" y2="200" class="axis"/>
+  <line x1="70" y1="70" x2="70" y2="200" class="axis"/>
+  <g class="grid-line">
+    <line x1="70" y1="70" x2="1340" y2="70"/>
+    <line x1="70" y1="96" x2="1340" y2="96"/>
+    <line x1="70" y1="122" x2="1340" y2="122"/>
+    <line x1="70" y1="148" x2="1340" y2="148"/>
+    <line x1="70" y1="174" x2="1340" y2="174"/>
+  </g>
+  <g class="tick" text-anchor="end">
+    <text x="64" y="73">1.0 M</text>
+    <text x="64" y="99">0.8 M</text>
+    <text x="64" y="125">0.6 M</text>
+    <text x="64" y="151">0.4 M</text>
+    <text x="64" y="177">0.2 M</text>
+    <text x="64" y="203">0.0</text>
+  </g>
+  <text x="20" y="135" class="axis-lbl" transform="rotate(-90 20,135)" text-anchor="middle">Revenue (Rp Miliar)</text>
+
+  <!-- 24 month positions: x = 70 + i*(1270/23) -->
+  <!-- Months labels -->
+  <g class="tick" text-anchor="middle">
+    <!-- 2023 -->
+    <text x="70"   y="218">2023-01</text>
+    <text x="125.2" y="218">02</text>
+    <text x="180.4" y="218">03</text>
+    <text x="235.7" y="218">04</text>
+    <text x="290.9" y="218">05</text>
+    <text x="346.1" y="218">06</text>
+    <text x="401.3" y="218">07</text>
+    <text x="456.5" y="218">08</text>
+    <text x="511.7" y="218">09</text>
+    <text x="566.9" y="218">10</text>
+    <text x="622.2" y="218">11</text>
+    <text x="677.4" y="218">12</text>
+    <!-- 2024 -->
+    <text x="732.6" y="218">2024-01</text>
+    <text x="787.8" y="218">02</text>
+    <text x="843.0" y="218">03</text>
+    <text x="898.3" y="218">04</text>
+    <text x="953.5" y="218">05</text>
+    <text x="1008.7" y="218">06</text>
+    <text x="1063.9" y="218">07</text>
+    <text x="1119.1" y="218">08</text>
+    <text x="1174.3" y="218">09</text>
+    <text x="1229.6" y="218">10</text>
+    <text x="1284.8" y="218">11</text>
+    <text x="1340" y="218">12</text>
+  </g>
+
+  <!-- 2023 line: 0.56 0.37 0.82 0.63 0.55 0.66 0.64 0.63 0.55 0.59 0.52 0.68 -->
+  <!-- y(v) = 200 - v*130   (since 1.0 -> 70, 0 -> 200) -->
+  <path d="M70,127.2 L125.2,151.9 L180.4,93.4 L235.7,118.1 L290.9,128.5 L346.1,114.2 L401.3,116.8 L456.5,118.1 L511.7,128.5 L566.9,123.3 L622.2,132.4 L677.4,111.6"
+        fill="none" stroke="#a0c4d6" stroke-width="2"/>
+  <path d="M70,127.2 L125.2,151.9 L180.4,93.4 L235.7,118.1 L290.9,128.5 L346.1,114.2 L401.3,116.8 L456.5,118.1 L511.7,128.5 L566.9,123.3 L622.2,132.4 L677.4,111.6 L677.4,200 L70,200 Z"
+        fill="#a0c4d6" opacity="0.18"/>
+  <g fill="#a0c4d6">
+    <circle cx="70" cy="127.2" r="3"/>
+    <circle cx="125.2" cy="151.9" r="3"/>
+    <circle cx="180.4" cy="93.4" r="3"/>
+    <circle cx="235.7" cy="118.1" r="3"/>
+    <circle cx="290.9" cy="128.5" r="3"/>
+    <circle cx="346.1" cy="114.2" r="3"/>
+    <circle cx="401.3" cy="116.8" r="3"/>
+    <circle cx="456.5" cy="118.1" r="3"/>
+    <circle cx="511.7" cy="128.5" r="3"/>
+    <circle cx="566.9" cy="123.3" r="3"/>
+    <circle cx="622.2" cy="132.4" r="3"/>
+    <circle cx="677.4" cy="111.6" r="3"/>
+  </g>
+
+  <!-- 2024 line: 0.61 0.51 0.85 0.82 0.73 0.66 0.81 0.66 0.72 0.64 0.72 0.76 -->
+  <path d="M732.6,120.7 L787.8,133.7 L843.0,89.5 L898.3,93.4 L953.5,105.1 L1008.7,114.2 L1063.9,94.7 L1119.1,114.2 L1174.3,106.4 L1229.6,116.8 L1284.8,106.4 L1340,101.2"
+        fill="none" stroke="#1f77b4" stroke-width="2.5"/>
+  <path d="M732.6,120.7 L787.8,133.7 L843.0,89.5 L898.3,93.4 L953.5,105.1 L1008.7,114.2 L1063.9,94.7 L1119.1,114.2 L1174.3,106.4 L1229.6,116.8 L1284.8,106.4 L1340,101.2 L1340,200 L732.6,200 Z"
+        fill="#1f77b4" opacity="0.20"/>
+  <g fill="#1f77b4">
+    <circle cx="732.6" cy="120.7" r="3"/>
+    <circle cx="787.8" cy="133.7" r="3"/>
+    <circle cx="843.0" cy="89.5" r="3"/>
+    <circle cx="898.3" cy="93.4" r="3"/>
+    <circle cx="953.5" cy="105.1" r="3"/>
+    <circle cx="1008.7" cy="114.2" r="3"/>
+    <circle cx="1063.9" cy="94.7" r="3"/>
+    <circle cx="1119.1" cy="114.2" r="3"/>
+    <circle cx="1174.3" cy="106.4" r="3"/>
+    <circle cx="1229.6" cy="116.8" r="3"/>
+    <circle cx="1284.8" cy="106.4" r="3"/>
+    <circle cx="1340" cy="101.2" r="3"/>
+  </g>
+
+  <!-- Annotation: Ramadan -->
+  <text x="180.4" y="80" font-size="10" fill="#666" text-anchor="middle">Ramadan</text>
+  <text x="843.0" y="76" font-size="10" fill="#666" text-anchor="middle">Ramadan</text>
+</g>
+
+<!-- ===== Row 2: Branch + Principal (y=420..680, h=260) ===== -->
+<g transform="translate(0,420)">
+  <line x1="683" y1="0" x2="683" y2="260" stroke="#e0e0e0"/>
+  <line x1="0" y1="260" x2="1366" y2="260" stroke="#e0e0e0"/>
+
+  <!-- Branch Revenue -->
+  <text x="20" y="22" class="section-title">🏢 REVENUE BY BRANCH — JAKARTA PUSAT &amp; SURABAYA TERATAS</text>
+  <text x="663" y="22" class="insight" text-anchor="end">Sort: Desc · Color: Sequential Blue</text>
+  <line x1="20" y1="32" x2="663" y2="32" stroke="#e6e6e6"/>
+
+  <!-- 8 horizontal bars. Chart area x=160..620 (max 460px = 2.73B), y=50..240 (8 bars, 24px each) -->
+  <!-- Order top→bottom: Jakarta Pusat 2.73, Surabaya 2.36, Jakarta Timur 2.21, Bandung 2.00, Semarang 1.83, Denpasar 1.63, Medan 1.45, Makassar 1.40 -->
+  <!-- Scale: x px = val/2.8 * 460 -->
+  <g class="tick" text-anchor="end">
+    <text x="155" y="65">Jakarta Pusat</text>
+    <text x="155" y="89">Surabaya</text>
+    <text x="155" y="113">Jakarta Timur</text>
+    <text x="155" y="137">Bandung</text>
+    <text x="155" y="161">Semarang</text>
+    <text x="155" y="185">Denpasar</text>
+    <text x="155" y="209">Medan</text>
+    <text x="155" y="233">Makassar</text>
+  </g>
+  <g>
+    <rect x="160" y="55" width="448.6" height="18" fill="#1f77b4"/>
+    <rect x="160" y="79" width="387.8" height="18" fill="#2e76bc"/>
+    <rect x="160" y="103" width="363.1" height="18" fill="#4a8bc8"/>
+    <rect x="160" y="127" width="328.6" height="18" fill="#6ba0d3"/>
+    <rect x="160" y="151" width="300.6" height="18" fill="#94bce0"/>
+    <rect x="160" y="175" width="267.8" height="18" fill="#b8d2ea"/>
+    <rect x="160" y="199" width="238.2" height="18" fill="#cfe1f0"/>
+    <rect x="160" y="223" width="230.0" height="18" fill="#dbe9f4"/>
+  </g>
+  <g class="bar-lbl">
+    <text x="615" y="68">2.73 M</text>
+    <text x="554" y="92">2.36 M</text>
+    <text x="529" y="116">2.21 M</text>
+    <text x="495" y="140">2.00 M</text>
+    <text x="467" y="164">1.83 M</text>
+    <text x="434" y="188">1.63 M</text>
+    <text x="404" y="212">1.45 M</text>
+    <text x="396" y="236">1.40 M</text>
+  </g>
+  <!-- X axis -->
+  <line x1="160" y1="244" x2="640" y2="244" class="axis"/>
+  <g class="tick" text-anchor="middle">
+    <text x="160" y="256">0</text>
+    <text x="320" y="256">1.0 M</text>
+    <text x="480" y="256">2.0 M</text>
+    <text x="640" y="256">3.0 M</text>
+  </g>
+
+  <!-- Principal Share (Donut) -->
+  <text x="703" y="22" class="section-title">🤝 PRINCIPAL SHARE — NESTLE DOMINAN 45%</text>
+  <text x="1346" y="22" class="insight" text-anchor="end">Donut · Angle: Revenue</text>
+  <line x1="703" y1="32" x2="1346" y2="32" stroke="#e6e6e6"/>
+
+  <!-- Donut center: cx=900, cy=145, r_outer=80, r_inner=50 -->
+  <!-- Shares: Nestle 45.4 (163.4°), Unilever 27.2 (97.9°), Wings 12.9 (46.4°), Mayora 7.7 (27.7°), Indofood 6.5 (23.4°)
+       Wait need to re-check: from chart: Nestle 45.4%, Unilever ~27.2, Wings ~12.9, Mayora ~7.7, Indofood 6.5
+       Verify total: 45.4+27.2+12.9+7.7+6.5 = 99.7% — close enough -->
+  <!-- Use precomputed arcs starting from 12 o'clock, clockwise -->
+  <!-- Nestle: 0..163.44deg; Unilever: 163.44..261.36; Wings: 261.36..307.8; Mayora: 307.8..335.52; Indofood: 335.52..359.16 -->
+  <g transform="translate(900,145)">
+    <!-- helper: each slice as path. r_outer=80, r_inner=50 -->
+    <!-- Nestle (45.4%) -->
+    <path d="M0,-80 A80,80 0 0,1 22.91,76.66 L14.32,47.91 A50,50 0 0,0 0,-50 Z" fill="#1f3a6d"/>
+    <!-- Unilever (27.2%) -->
+    <path d="M22.91,76.66 A80,80 0 0,1 -79.05,12.55 L-49.4,7.84 A50,50 0 0,0 14.32,47.91 Z" fill="#1f77b4"/>
+    <!-- Wings (12.9%) -->
+    <path d="M-79.05,12.55 A80,80 0 0,1 -63.33,-48.91 L-39.58,-30.57 A50,50 0 0,0 -49.4,7.84 Z" fill="#3a92c4"/>
+    <!-- Mayora (7.7%) -->
+    <path d="M-63.33,-48.91 A80,80 0 0,1 -32.97,-72.89 L-20.61,-45.55 A50,50 0 0,0 -39.58,-30.57 Z" fill="#84b59f"/>
+    <!-- Indofood (6.5%) -->
+    <path d="M-32.97,-72.89 A80,80 0 0,1 0,-80 L0,-50 A50,50 0 0,0 -20.61,-45.55 Z" fill="#cfe1d3"/>
+
+    <!-- Center text -->
+    <text x="0" y="-4" font-size="18" font-weight="700" fill="#1f2d3d" text-anchor="middle">Rp 15.61 M</text>
+    <text x="0" y="14" font-size="10" fill="#888" text-anchor="middle">Total Revenue</text>
+
+    <!-- Slice labels -->
+    <text x="0" y="-65" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">45.4%</text>
+    <text x="-58" y="42" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">27.2%</text>
+    <text x="-62" y="-22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">12.9%</text>
+    <text x="-39" y="-55" font-size="9" font-weight="700" fill="#1f2d3d" text-anchor="middle">7.7%</text>
+    <text x="-15" y="-72" font-size="9" font-weight="700" fill="#1f2d3d" text-anchor="middle">6.5%</text>
+  </g>
+
+  <!-- Legend right side -->
+  <g transform="translate(1080,80)">
+    <rect x="0" y="0" width="12" height="12" fill="#1f3a6d"/>
+    <text x="18" y="10" font-size="11" fill="#444">Nestle Indonesia (45.4%)</text>
+    <rect x="0" y="22" width="12" height="12" fill="#1f77b4"/>
+    <text x="18" y="32" font-size="11" fill="#444">Unilever Indonesia (27.2%)</text>
+    <rect x="0" y="44" width="12" height="12" fill="#3a92c4"/>
+    <text x="18" y="54" font-size="11" fill="#444">Wings Group (12.9%)</text>
+    <rect x="0" y="66" width="12" height="12" fill="#84b59f"/>
+    <text x="18" y="76" font-size="11" fill="#444">Mayora Indah (7.7%)</text>
+    <rect x="0" y="88" width="12" height="12" fill="#cfe1d3"/>
+    <text x="18" y="98" font-size="11" fill="#444">Indofood Sukses Makmur (6.5%)</text>
+  </g>
+</g>
+
+<!-- ===== Row 3: Top Products + Heatmap (y=680..920, h=240) ===== -->
+<g transform="translate(0,680)">
+  <line x1="683" y1="0" x2="683" y2="240" stroke="#e0e0e0"/>
+  <line x1="0" y1="240" x2="1366" y2="240" stroke="#e0e0e0"/>
+
+  <!-- Top 10 Products -->
+  <text x="20" y="22" class="section-title">📦 TOP 10 PRODUCTS — DANCOW &amp; NESCAFE TERATAS</text>
+  <text x="663" y="22" class="insight" text-anchor="end">Top N filter (10) · Color: by Principal</text>
+  <line x1="20" y1="32" x2="663" y2="32" stroke="#e6e6e6"/>
+
+  <!-- Order top→bottom by revenue desc: Dancow 2.43, Nescafe 2.18, Koko 1.95, Sunsilk 1.75, Clear 1.17, Rexona 0.86, Daia 0.73, So Klin 0.58, Kopiko 0.48, Roma 0.42 -->
+  <!-- Bars start x=200, max 420px for value 2.5 -->
+  <g class="tick" text-anchor="end" font-size="10">
+    <text x="195" y="55">Dancow Fortigro 800g</text>
+    <text x="195" y="73">Nescafe Classic 200g</text>
+    <text x="195" y="91">Koko Krunch 170g</text>
+    <text x="195" y="109">Sunsilk Shampoo 170ml</text>
+    <text x="195" y="127">Clear Shampoo 170ml</text>
+    <text x="195" y="145">Rexona Deodorant 50ml</text>
+    <text x="195" y="163">Daia Detergent 800g</text>
+    <text x="195" y="181">So Klin Detergent 800g</text>
+    <text x="195" y="199">Kopiko Permen 150g</text>
+    <text x="195" y="217">Roma Kelapa 300g</text>
+  </g>
+  <!-- bar widths: val/2.5 * 420 -->
+  <g>
+    <rect x="200" y="46" width="408.2" height="14" fill="#1f3a6d"/>
+    <rect x="200" y="64" width="366.2" height="14" fill="#1f3a6d"/>
+    <rect x="200" y="82" width="327.6" height="14" fill="#1f3a6d"/>
+    <rect x="200" y="100" width="294.0" height="14" fill="#1f77b4"/>
+    <rect x="200" y="118" width="196.6" height="14" fill="#1f77b4"/>
+    <rect x="200" y="136" width="144.5" height="14" fill="#1f77b4"/>
+    <rect x="200" y="154" width="122.6" height="14" fill="#3a92c4"/>
+    <rect x="200" y="172" width="97.4" height="14" fill="#3a92c4"/>
+    <rect x="200" y="190" width="80.6" height="14" fill="#84b59f"/>
+    <rect x="200" y="208" width="70.6" height="14" fill="#84b59f"/>
+  </g>
+  <g class="bar-lbl" font-size="10">
+    <text x="613" y="58">2.43 M</text>
+    <text x="571" y="76">2.18 M</text>
+    <text x="533" y="94">1.95 M</text>
+    <text x="500" y="112">1.75 M</text>
+    <text x="402" y="130">1.17 M</text>
+    <text x="350" y="148">0.86 M</text>
+    <text x="328" y="166">0.73 M</text>
+    <text x="303" y="184">0.58 M</text>
+    <text x="287" y="202">0.48 M</text>
+    <text x="277" y="220">0.42 M</text>
+  </g>
+  <!-- Mini legend for color = principal -->
+  <g transform="translate(20,228)">
+    <rect x="0" y="0" width="9" height="9" fill="#1f3a6d"/><text x="13" y="9" font-size="9" fill="#666">Nestle</text>
+    <rect x="60" y="0" width="9" height="9" fill="#1f77b4"/><text x="73" y="9" font-size="9" fill="#666">Unilever</text>
+    <rect x="125" y="0" width="9" height="9" fill="#3a92c4"/><text x="138" y="9" font-size="9" fill="#666">Wings</text>
+    <rect x="180" y="0" width="9" height="9" fill="#84b59f"/><text x="193" y="9" font-size="9" fill="#666">Mayora</text>
+  </g>
+
+  <!-- Branch × Principal Heatmap -->
+  <text x="703" y="22" class="section-title">🔥 BRANCH × PRINCIPAL HEATMAP — JKT PUSAT × NESTLE = 1.28 M</text>
+  <text x="1346" y="22" class="insight" text-anchor="end">Mark: Square · Color: Revenue (Rp Miliar)</text>
+  <line x1="703" y1="32" x2="1346" y2="32" stroke="#e6e6e6"/>
+
+  <!-- Heatmap: 8 rows × 5 cols, cell size 70x22, starting x=830, y=60 -->
+  <!-- Column headers -->
+  <g class="tick" text-anchor="middle" font-size="10">
+    <text x="865" y="52">Indofood</text>
+    <text x="935" y="52">Mayora</text>
+    <text x="1005" y="52">Nestle</text>
+    <text x="1075" y="52">Unilever</text>
+    <text x="1145" y="52">Wings</text>
+  </g>
+
+  <!-- Row data: name, [Indofood, Mayora, Nestle, Unilever, Wings] -->
+  <!-- Sort by Nestle desc: JktPusat 1.28, Surabaya 1.12, JktTimur 0.98, Bandung 0.90, Semarang 0.85, Denpasar 0.75, Makassar 0.63, Medan 0.61 -->
+  <!-- Color stops (YlGnBu) min=0.10 max=1.28: linear interp.
+        For each value v, t=(v-0.10)/1.18 -->
+  <!-- Pre-computed per cell (RRGGBB approximation) -->
+  <g font-size="10" text-anchor="middle" font-weight="600">
+    <!-- Row labels -->
+    <text x="825" y="74"  text-anchor="end">Jakarta Pusat</text>
+    <text x="825" y="96"  text-anchor="end">Surabaya</text>
+    <text x="825" y="118" text-anchor="end">Jakarta Timur</text>
+    <text x="825" y="140" text-anchor="end">Bandung</text>
+    <text x="825" y="162" text-anchor="end">Semarang</text>
+    <text x="825" y="184" text-anchor="end">Denpasar</text>
+    <text x="825" y="206" text-anchor="end">Makassar</text>
+    <text x="825" y="228" text-anchor="end">Medan</text>
+
+    <!-- Cells: Jakarta Pusat -->
+    <rect x="830" y="62" width="70" height="22" fill="#edf8b1" stroke="#fff"/><text x="865" y="77" fill="#1f2d3d">0.17</text>
+    <rect x="900" y="62" width="70" height="22" fill="#dff3b2" stroke="#fff"/><text x="935" y="77" fill="#1f2d3d">0.20</text>
+    <rect x="970" y="62" width="70" height="22" fill="#0c2c84" stroke="#fff"/><text x="1005" y="77" fill="#fff">1.28</text>
+    <rect x="1040" y="62" width="70" height="22" fill="#1d6cb1" stroke="#fff"/><text x="1075" y="77" fill="#fff">0.76</text>
+    <rect x="1110" y="62" width="70" height="22" fill="#a4dab2" stroke="#fff"/><text x="1145" y="77" fill="#1f2d3d">0.33</text>
+
+    <!-- Surabaya -->
+    <rect x="830" y="84" width="70" height="22" fill="#f3fab1" stroke="#fff"/><text x="865" y="99" fill="#1f2d3d">0.13</text>
+    <rect x="900" y="84" width="70" height="22" fill="#e8f6b2" stroke="#fff"/><text x="935" y="99" fill="#1f2d3d">0.16</text>
+    <rect x="970" y="84" width="70" height="22" fill="#1d4f9e" stroke="#fff"/><text x="1005" y="99" fill="#fff">1.12</text>
+    <rect x="1040" y="84" width="70" height="22" fill="#3290be" stroke="#fff"/><text x="1075" y="99" fill="#fff">0.65</text>
+    <rect x="1110" y="84" width="70" height="22" fill="#b2dfb6" stroke="#fff"/><text x="1145" y="99" fill="#1f2d3d">0.30</text>
+
+    <!-- Jakarta Timur -->
+    <rect x="830" y="106" width="70" height="22" fill="#f0f9b1" stroke="#fff"/><text x="865" y="121" fill="#1f2d3d">0.15</text>
+    <rect x="900" y="106" width="70" height="22" fill="#dcf2b3" stroke="#fff"/><text x="935" y="121" fill="#1f2d3d">0.22</text>
+    <rect x="970" y="106" width="70" height="22" fill="#225ea8" stroke="#fff"/><text x="1005" y="121" fill="#fff">0.98</text>
+    <rect x="1040" y="106" width="70" height="22" fill="#5cafc1" stroke="#fff"/><text x="1075" y="121" fill="#fff">0.53</text>
+    <rect x="1110" y="106" width="70" height="22" fill="#a4dab2" stroke="#fff"/><text x="1145" y="121" fill="#1f2d3d">0.33</text>
+
+    <!-- Bandung -->
+    <rect x="830" y="128" width="70" height="22" fill="#f3fab1" stroke="#fff"/><text x="865" y="143" fill="#1f2d3d">0.13</text>
+    <rect x="900" y="128" width="70" height="22" fill="#edf8b1" stroke="#fff"/><text x="935" y="143" fill="#1f2d3d">0.15</text>
+    <rect x="970" y="128" width="70" height="22" fill="#2466ad" stroke="#fff"/><text x="1005" y="143" fill="#fff">0.90</text>
+    <rect x="1040" y="128" width="70" height="22" fill="#4a9fc1" stroke="#fff"/><text x="1075" y="143" fill="#fff">0.57</text>
+    <rect x="1110" y="128" width="70" height="22" fill="#cfe9b9" stroke="#fff"/><text x="1145" y="143" fill="#1f2d3d">0.24</text>
+
+    <!-- Semarang -->
+    <rect x="830" y="150" width="70" height="22" fill="#f3fab1" stroke="#fff"/><text x="865" y="165" fill="#1f2d3d">0.13</text>
+    <rect x="900" y="150" width="70" height="22" fill="#f3fab1" stroke="#fff"/><text x="935" y="165" fill="#1f2d3d">0.13</text>
+    <rect x="970" y="150" width="70" height="22" fill="#2870b3" stroke="#fff"/><text x="1005" y="165" fill="#fff">0.85</text>
+    <rect x="1040" y="150" width="70" height="22" fill="#5cafc1" stroke="#fff"/><text x="1075" y="165" fill="#fff">0.49</text>
+    <rect x="1110" y="150" width="70" height="22" fill="#d6eebb" stroke="#fff"/><text x="1145" y="165" fill="#1f2d3d">0.23</text>
+
+    <!-- Denpasar -->
+    <rect x="830" y="172" width="70" height="22" fill="#f6fbb1" stroke="#fff"/><text x="865" y="187" fill="#1f2d3d">0.11</text>
+    <rect x="900" y="172" width="70" height="22" fill="#f3fab1" stroke="#fff"/><text x="935" y="187" fill="#1f2d3d">0.13</text>
+    <rect x="970" y="172" width="70" height="22" fill="#3289b8" stroke="#fff"/><text x="1005" y="187" fill="#fff">0.75</text>
+    <rect x="1040" y="172" width="70" height="22" fill="#7fc7c0" stroke="#fff"/><text x="1075" y="187" fill="#1f2d3d">0.43</text>
+    <rect x="1110" y="172" width="70" height="22" fill="#dbf0bd" stroke="#fff"/><text x="1145" y="187" fill="#1f2d3d">0.21</text>
+
+    <!-- Makassar -->
+    <rect x="830" y="194" width="70" height="22" fill="#f7fbb1" stroke="#fff"/><text x="865" y="209" fill="#1f2d3d">0.10</text>
+    <rect x="900" y="194" width="70" height="22" fill="#f6fbb1" stroke="#fff"/><text x="935" y="209" fill="#1f2d3d">0.11</text>
+    <rect x="970" y="194" width="70" height="22" fill="#4ba7c2" stroke="#fff"/><text x="1005" y="209" fill="#fff">0.63</text>
+    <rect x="1040" y="194" width="70" height="22" fill="#92cfbf" stroke="#fff"/><text x="1075" y="209" fill="#1f2d3d">0.38</text>
+    <rect x="1110" y="194" width="70" height="22" fill="#e2f3bf" stroke="#fff"/><text x="1145" y="209" fill="#1f2d3d">0.18</text>
+
+    <!-- Medan -->
+    <rect x="830" y="216" width="70" height="22" fill="#f7fbb1" stroke="#fff"/><text x="865" y="231" fill="#1f2d3d">0.10</text>
+    <rect x="900" y="216" width="70" height="22" fill="#f6fbb1" stroke="#fff"/><text x="935" y="231" fill="#1f2d3d">0.11</text>
+    <rect x="970" y="216" width="70" height="22" fill="#52b0c1" stroke="#fff"/><text x="1005" y="231" fill="#fff">0.61</text>
+    <rect x="1040" y="216" width="70" height="22" fill="#7fc7c0" stroke="#fff"/><text x="1075" y="231" fill="#1f2d3d">0.44</text>
+    <rect x="1110" y="216" width="70" height="22" fill="#e6f4c0" stroke="#fff"/><text x="1145" y="231" fill="#1f2d3d">0.19</text>
+  </g>
+
+  <!-- Color legend -->
+  <g transform="translate(1210,62)">
+    <text x="0" y="-4" font-size="9" fill="#666">Revenue</text>
+    <text x="0" y="6" font-size="9" fill="#666">(Rp M)</text>
+    <defs>
+      <linearGradient id="hmGradient" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0" stop-color="#ffffd9"/>
+        <stop offset="0.25" stop-color="#c7e9b4"/>
+        <stop offset="0.5" stop-color="#41b6c4"/>
+        <stop offset="0.75" stop-color="#225ea8"/>
+        <stop offset="1" stop-color="#0c2c84"/>
+      </linearGradient>
+    </defs>
+    <rect x="20" y="20" width="14" height="140" fill="url(#hmGradient)" stroke="#ccc"/>
+    <text x="42" y="24" font-size="9" fill="#666">1.30</text>
+    <text x="42" y="60" font-size="9" fill="#666">1.00</text>
+    <text x="42" y="96" font-size="9" fill="#666">0.65</text>
+    <text x="42" y="132" font-size="9" fill="#666">0.30</text>
+    <text x="42" y="164" font-size="9" fill="#666">0.10</text>
+  </g>
+</g>
+
+<!-- ===== Footer (y=920..950) ===== -->
+<g transform="translate(0,920)">
+  <rect x="0" y="0" width="1366" height="30" fill="#fafbfc" stroke="#e0e0e0"/>
+  <text x="20" y="19" class="footer">Prepared by <tspan font-weight="700">Filza Dika</tspan> · Data Analyst Portfolio · #FMCG #SalesAnalytics #Tableau</text>
+  <text x="1346" y="19" class="footer" text-anchor="end">Source: synthetic FMCG dataset · Last updated 2026-05-04</text>
+</g>
+
+</svg>
