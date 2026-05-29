@@ -147,13 +147,13 @@ fmcg-sales-analysis/
 
 ## 👤 About the Author
 
-**[Filza Dikaputra]** — Aspiring Data Analyst dengan pengalaman di industri FMCG (sales performance analysis).
+**Filza Dikaputra** — Aspiring Data Analyst dengan pengalaman di industri FMCG (sales performance analysis).
 
 **Skills:** SQL · Python · Tableau · Excel · Data Visualization · Storytelling
 
-📧 **Contact:** [dikaputrafilza03@gmail.com]  
-💼 **LinkedIn:** [linkedin.com/in/filza-dikaputra]  
-🐙 **GitHub:** [github.com/filzadika-cell]
+📧 **Contact:** dikaputrafilza03@gmail.com  
+💼 **LinkedIn:** linkedin.com/in/filza-dikaputra  
+🐙 **GitHub:** github.com/filzadika-cell
 
 ---
 
