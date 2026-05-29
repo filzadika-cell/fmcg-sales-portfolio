@@ -143,48 +143,18 @@ fmcg-sales-analysis/
 
 ---
 
-## 🚀 How to Reproduce
-
-```bash
-# 1. Clone repository
-git clone https://github.com/[your-username]/fmcg-sales-analysis.git
-cd fmcg-sales-analysis
-
-# 2. Install dependencies
-pip install pandas numpy matplotlib seaborn jupyter
-
-# 3. Generate data (atau pakai CSV yang sudah ada)
-python data/generate_data.py
-
-# 4. Run SQL analysis (gunakan SQLite atau DB pilihanmu)
-sqlite3 fmcg.db < sql/01_schema_and_load.sql
-sqlite3 fmcg.db < sql/02_data_cleaning.sql
-sqlite3 fmcg.db < sql/03_business_analysis.sql
-
-# 5. Run Python analysis
-jupyter notebook python/fmcg_sales_analysis.ipynb
-
-# 6. Open Tableau dashboard
-# Import data: tableau/sales_clean_for_tableau.csv
-# Follow guide: tableau/dashboard_guide.md
-```
-
 ---
 
 ## 👤 About the Author
 
-**[Your Name]** — Aspiring Data Analyst dengan pengalaman di industri FMCG (sales performance analysis).
+**[Filza Dikaputra]** — Aspiring Data Analyst dengan pengalaman di industri FMCG (sales performance analysis).
 
 **Skills:** SQL · Python · Tableau · Excel · Data Visualization · Storytelling
 
-📧 **Contact:** [your.email@gmail.com]  
-💼 **LinkedIn:** [linkedin.com/in/your-profile]  
-🐙 **GitHub:** [github.com/your-username]
+📧 **Contact:** [dikaputrafilza03@gmail.com]  
+💼 **LinkedIn:** [linkedin.com/in/filza-dikaputra]  
+🐙 **GitHub:** [github.com/filzadika-cell]
 
 ---
-
-## 📜 License
-
-MIT License — feel free to fork & adapt for your own portfolio.
 
 > ⚠️ **Note:** Data dalam project ini adalah **dummy data** yang dibuat untuk keperluan portfolio. Tidak merepresentasikan data perusahaan manapun.
